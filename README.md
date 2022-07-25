@@ -1,6 +1,7 @@
 # kordivider
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/mrchypark/kordivider/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/kordivider?branch=main)
 <!-- badges: end -->
 
 The goal of kordivider is to ...
