@@ -11,8 +11,11 @@ The goal of kordivider is to ...
 You can install the development version of kordivider from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("mrchypark/kordivider")
+# CRAN NOT YET!!!!
+install.packages("kordivider")
+
+# dev version r-universe
+install.packages('kordivider', repos = "https://mrchypark.r-universe.dev")
 ```
 
 ## Example
