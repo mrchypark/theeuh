@@ -6,6 +6,10 @@
 #' @export
 space <- function(ko_sents) {
 
+  chk <- try(reticulate::use_condaenv('r-theeuh', required = TRUE), silent = T)
+  if (!inherits(chk, "try-error")) set_env()
+  if (!check_model_set()) load_models()
+
   sess <- get("sess", envir = .kdenv)
 
   spacing_ <- function(ko_sent) {

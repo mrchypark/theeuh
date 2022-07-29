@@ -1,5 +1,9 @@
+check_model_set <- function() {
+  length(ls(envir = .kdenv)) == 3
+}
+
 #' @importFrom reticulate import
-loads <- function() {
+load_models <- function() {
   w2idx <-
     file.path(system.file(package = "theeuh"), "model", 'w2idx')
 
@@ -19,4 +23,17 @@ loads <- function() {
   sess <- ort$InferenceSession(model_file)
   assign("sess", sess, envir = .kdenv)
 
+}
+
+#' @importFrom reticulate conda_create py_module_available use_condaenv conda_install
+set_env <- function() {
+  envnm <- 'r-theeuh'
+  chk <- try(reticulate::use_condaenv(envnm, required = TRUE), silent = T)
+  if (!inherits(chk, "try-error")) {
+    reticulate::conda_create(envnm, packages = "numpy")
+    reticulate::use_condaenv(envnm, required = TRUE)
+  }
+  if (!reticulate::py_module_available("onnxruntime")) {
+    reticulate::conda_install(envnm, packages = c('onnxruntime==1.12.0'), pip = TRUE)
+  }
 }
