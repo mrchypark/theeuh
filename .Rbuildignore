@@ -1,6 +1,4 @@
-^renv$
-^renv\.lock$
-^kordivider\.Rproj$
+^theeuh\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.github$

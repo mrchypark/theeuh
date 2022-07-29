@@ -1,7 +1,7 @@
 #' @importFrom reticulate import
 loads <- function() {
   w2idx <-
-    file.path(system.file(package = "kordivider"), "model", 'w2idx')
+    file.path(system.file(package = "theeuh"), "model", 'w2idx')
 
   w2idx_tbl <- readRDS(w2idx)
 
@@ -12,7 +12,7 @@ loads <- function() {
   assign("hash", hash, envir = .kdenv)
 
   model_file <-
-    file.path(system.file(package = "kordivider"), "model", 'kospacing.onnx')
+    file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
 
   ort <- reticulate::import("onnxruntime")
   sess <- ort$InferenceSession(model_file)
