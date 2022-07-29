@@ -15,9 +15,8 @@ loads <- function() {
     file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
 
   ort <- reticulate::import("onnxruntime")
+  assign("ort", ort, envir = .kdenv)
   sess <- ort$InferenceSession(model_file)
   assign("sess", sess, envir = .kdenv)
 
-  ort <- reticulate::import("onnxruntime")
-  assign("ort", ort, envir = .kdenv)
 }
