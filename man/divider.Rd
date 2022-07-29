@@ -2,13 +2,13 @@
 % Please edit documentation in R/divider.R
 \name{divider}
 \alias{divider}
-\title{Divid sentanse of korean}
+\title{Divide sentances of korean}
 \usage{
-divider(sent)
+divider(ko_sents)
 }
 \arguments{
-\item{sent}{korean sentense.}
+\item{ko_sents}{korean sentence for divide.}
 }
 \description{
-Divid sentanse of korean
+Divide sentances of korean
 }

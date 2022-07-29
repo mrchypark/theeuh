@@ -1,12 +1,12 @@
-Package: kordivider
-Title: What the Package Does (One Line, Title Case)
+Package: theeuh
+Title: Add Spaces To Korean Sentences.
 Version: 0.0.0.9000
 Authors@R: person(given = "Chanyub",
-             family = "Park",
-             role = c("aut","cre"),
-             email = "mrchypark@gmail.com",
-             comment = c(ORCID = "0000-0001-6474-2570"))
-Description: What the package does (one paragraph).
+           family = "Park",
+           role = c("aut","cre"),
+           email = "mrchypark@gmail.com",
+           comment = c(ORCID = "0000-0001-6474-2570"))
+Description: Provides a function to add spaces to Korean sentences.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -14,10 +14,16 @@ RoxygenNote: 7.1.2
 URL: https://github.com/mrchypark/kordivider,
     https://mrchypark.github.io/kordivider/
 BugReports: https://github.com/mrchypark/kordivider/issues
-Imports: 
-    magrittr,
-    tibble
+Imports:
+    reticulate
 Suggests: 
     covr,
+    usethis,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "onnxruntime", version = "1.12.0", pip = TRUE)
+    )
+  )
