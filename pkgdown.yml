@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-07-25T13:09Z
+last_built: 2022-07-29T16:28Z
 urls:
-  reference: https://mrchypark.github.io/kordivider/reference
-  article: https://mrchypark.github.io/kordivider/articles
+  reference: https://mrchypark.github.io/theeuh/reference
+  article: https://mrchypark.github.io/theeuh/articles
 
