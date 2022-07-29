@@ -1,4 +1,4 @@
 library(testthat)
-library(kordivider)
+library(theeuh)
 
-test_check("kordivider")
+test_check("theeuh")

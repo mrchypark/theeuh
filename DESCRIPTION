@@ -1,5 +1,5 @@
 Package: theeuh
-Title: Add Spaces To Korean Sentences.
+Title: Add Spaces To Korean Sentences
 Version: 0.0.0.9000
 Authors@R: person(given = "Chanyub",
            family = "Park",

@@ -1,10 +1,10 @@
-# kordivider
+# theeuh
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/mrchypark/kordivider/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/kordivider?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/theeuh?branch=main)
 <!-- badges: end -->
 
-The goal of kordivider is to ...
+The goal of theeuh is to ...
 
 ## Installation
 
@@ -12,10 +12,10 @@ You can install the development version of kordivider from [GitHub](https://gith
 
 ``` r
 # CRAN NOT YET!!!!
-install.packages("kordivider")
+install.packages("theeuh")
 
 # dev version r-universe
-install.packages('kordivider', repos = "https://mrchypark.r-universe.dev")
+install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 ```
 
 ## Example
@@ -23,7 +23,7 @@ install.packages('kordivider', repos = "https://mrchypark.r-universe.dev")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(kordivider)
+library(theeuh)
 ## basic example code
 ```
 

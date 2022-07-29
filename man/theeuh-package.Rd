@@ -4,7 +4,7 @@
 \name{theeuh-package}
 \alias{theeuh}
 \alias{theeuh-package}
-\title{theeuh: Add Spaces To Korean Sentences.}
+\title{theeuh: Add Spaces To Korean Sentences}
 \description{
 Provides a function to add spaces to Korean sentences.
 }
