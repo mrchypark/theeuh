@@ -58,6 +58,13 @@ install_onnxruntime(envname = "r-theeuh")
 
 more info about `install_onnxruntime()`, please check help page.
 
-## usage
+## Usage
 
 Please check <https://mrchypark.github.io/theeuh>
+
+## Special Thanks to
+
+Original package is [KoSpacing](https://github.com/haven-jeon/KoSpacing) by [haven-jeon](https://github.com/haven-jeon).
+Most parts of code is from [KoSpacing](https://github.com/haven-jeon/KoSpacing)
+Also `{theeuh}` package's model and word index is from [KoSpacing](https://github.com/haven-jeon/KoSpacing).
+
