@@ -1,4 +1,4 @@
-# theeuh
+# theeuh [<img src="man/figures/logo.png" align="right" height=140/>](https://mrchypark.github.io/theeuh/index.html)
 
 <!-- badges: start -->
 
