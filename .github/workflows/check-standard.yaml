@@ -41,7 +41,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck
+          extra-packages: rcmdcheck remotes
 
       - name: Install package + deps
         run: remotes::install_local(dependencies = TRUE, force = TRUE)
