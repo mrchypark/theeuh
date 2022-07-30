@@ -1,4 +1,5 @@
 library(testthat)
 library(theeuh)
 
-test_check("theeuh")
+if (identical(Sys.getenv("NOT_CRAN"), "true"))
+  test_check("theeuh")

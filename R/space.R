@@ -6,11 +6,9 @@
 #' @export
 space <- function(ko_sents) {
 
-  chk <- try(reticulate::use_condaenv('r-theeuh', required = TRUE), silent = T)
-  if (!inherits(chk, "try-error")) set_env()
   if (!check_model_set()) load_models()
 
-  sess <- get("sess", envir = .kdenv)
+  sess <- get("sess", envir = .theeuhenv)
 
   spacing_ <- function(ko_sent) {
     if (nchar(ko_sent) > 198) {
@@ -37,7 +35,7 @@ space <- function(ko_sents) {
 
 
 sent_to_matrix <- function(ko_sent) {
-  hash <- get("hash", envir = .kdenv)
+  hash <- get("hash", envir = .theeuhenv)
   ko_sent_ <- paste0('\u00ab', ko_sent, '\u00bb')
   ko_sent_ <- gsub('\\s', '^', ko_sent_)
 

@@ -1,6 +1,6 @@
 Package: theeuh
 Title: Add Spaces To Korean Sentences
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person(given = "Chanyub",
            family = "Park",
            role = c("aut","cre"),
@@ -14,8 +14,10 @@ RoxygenNote: 7.1.2
 URL: https://github.com/mrchypark/kordivider,
     https://mrchypark.github.io/kordivider/
 BugReports: https://github.com/mrchypark/kordivider/issues
+SystemRequirements: onnxruntime (https://onnxruntime.ai/)
 Imports:
-    reticulate
+    reticulate,
+    rstudioapi (>= 0.7)
 Suggests: 
     covr,
     testthat (>= 3.0.0)
