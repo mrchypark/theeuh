@@ -2,7 +2,7 @@
 % Please edit documentation in R/space.R
 \name{space}
 \alias{space}
-\title{Add spaces to sKorean sentences.}
+\title{Write spaces to Korean sentences.}
 \usage{
 space(ko_sents)
 }
@@ -10,5 +10,5 @@ space(ko_sents)
 \item{ko_sents}{target korean sentences.}
 }
 \description{
-Add spaces to sKorean sentences.
+Write spaces to Korean sentences.
 }
