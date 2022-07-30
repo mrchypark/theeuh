@@ -16,7 +16,8 @@
 #' @param ... other arguments passed to [`reticulate::conda_install()`] or
 #'   [`reticulate::virtualenv_install()`], depending on the `method` used.
 #'
-#' @importFrom reticulate conda_create py_module_available use_condaenv conda_install
+#' @importFrom reticulate py_available py_install
+#' @importFrom rstudioapi hasFun restartSession
 #' @export
 install_onnxruntime <- function(method = c("auto", "virtualenv", "conda"),
                                 conda = "auto",
@@ -40,14 +41,14 @@ install_onnxruntime <- function(method = c("auto", "virtualenv", "conda"),
   if (is_windows()) {
 
     # avoid DLL in use errors
-    if (py_available()) {
+    if (reticulate::py_available()) {
       stop("You should call install_onnxruntime() only in a fresh ",
            "R session that has not yet initialized onnxruntime (this is ",
            "to avoid DLL in use errors during installation)")
     }
   }
 
-  packages <- c(paste0("onnxruntime==", version), "numpy")
+  packages <- c(paste0("onnxruntime==", version))
 
   reticulate::py_install(
     packages       = packages,
