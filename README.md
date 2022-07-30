@@ -56,6 +56,8 @@ if you want to use conda env for `{theeuh}` only, add env name to create.
 install_onnxruntime(envname = "r-theeuh")
 ```
 
+more info about `install_onnxruntime()`, please check help page.
+
 ## usage
 
 Please check <https://mrchypark.github.io/theeuh>
