@@ -45,7 +45,8 @@ jobs:
 
       - name: instal python deps onnxruntime
         run: |
-          theeuh::install_onnxruntime()
+          library(theeuh)
+          install_onnxruntime()
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
