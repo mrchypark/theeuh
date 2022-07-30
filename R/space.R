@@ -1,4 +1,4 @@
-#' Add spaces to sKorean sentences.
+#' Add spaces to Korean sentences.
 #'
 #' @param ko_sents target korean sentences.
 #'
