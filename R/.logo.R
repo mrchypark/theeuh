@@ -48,7 +48,7 @@ sticker(
   p_y = 0.65,
   filename = "man/figures/logo.png",
   h_fill = "#deeeef",
-  p_color = "#212a4e",
+  p_color = "#212a4d",
   h_color = "#0099a4",
   url = "mrchypark.github.io/theeuh",
   u_size = 5,
