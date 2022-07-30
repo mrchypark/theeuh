@@ -44,8 +44,9 @@ packages and reinstall all already installed python packages. This defaults
 to \code{TRUE}, to ensure that onnxruntime dependencies like NumPy are compatible
 with the prebuilt onnxruntime binaries.}
 
-\item{python_version}{The requested Python version. Ignored when attempting
-to install with a Python virtual environment.}
+\item{python_version, conda_python_version}{Pass a string like "3.8" to
+request that conda install a specific Python version. This is ignored when
+attempting to install in a Python virtual environment.}
 }
 \description{
 \code{install_onnxruntime()} installs just the onnxruntime python package and it's

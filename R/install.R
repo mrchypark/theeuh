@@ -13,6 +13,9 @@
 #'   packages and reinstall all already installed python packages. This defaults
 #'   to `TRUE`, to ensure that onnxruntime dependencies like NumPy are compatible
 #'   with the prebuilt onnxruntime binaries.
+#' @param python_version,conda_python_version Pass a string like "3.8" to
+#'   request that conda install a specific Python version. This is ignored when
+#'   attempting to install in a Python virtual environment.
 #' @param ... other arguments passed to [`reticulate::conda_install()`] or
 #'   [`reticulate::virtualenv_install()`], depending on the `method` used.
 #'
