@@ -6,6 +6,8 @@
 \alias{theeuh-package}
 \title{theeuh: Add Spaces To Korean Sentences}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Provides a function to add spaces to Korean sentences.
 }
 \seealso{
