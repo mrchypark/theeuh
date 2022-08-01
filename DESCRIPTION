@@ -22,3 +22,9 @@ Suggests:
     covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Config/reticulate: 
+  list(
+    packages = list(
+      list(package = "onnxruntime", version = "1.12.0", pip = TRUE)
+    )
+  )
