@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-# theeuh [<img src="man/figures/logo.png" align="right" height=140/>](https://mrchypark.github.io/theeuh/index.html)
+# theeuh
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
@@ -51,7 +51,7 @@ install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 
 ### 2-1. miniconda 설치
 
-```{r}
+```r
 reticulate::install_miniconda()
 ```
 

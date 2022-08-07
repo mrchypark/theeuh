@@ -23,6 +23,8 @@ jobs:
           cache-version: 2
           extra-packages: pkgdown preferably
 
+      - uses: conda-incubator/setup-miniconda@v2
+
       - name: Install package
         run: R CMD INSTALL .
 
