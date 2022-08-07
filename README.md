@@ -14,6 +14,8 @@ downloads](https://cranlogs.r-pkg.org/badges/theeuh)](https://cran.r-project.org
 coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/theeuh?branch=main)
 <!-- badges: end -->
 
+[한글문서](https://mrchypark.github.io/theeuh/articles/readme-kr.html)
+
 The goal of theeuh is to write space on korean sentense corractly.
 
 ## Installation
