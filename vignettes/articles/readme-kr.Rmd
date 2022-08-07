@@ -51,7 +51,7 @@ install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 
 ### 2-1. miniconda 설치
 
-```r
+```{r}
 reticulate::install_miniconda()
 ```
 
@@ -64,7 +64,7 @@ reticulate::install_miniconda()
 가상환경에 대해 잘 모르신다면 새로운 가상환경 이름(예>`r-theeuh``)을 사용하기를 추천합니다.
 기존에 없는 `envname`을 추가하면 새 가상환경을 생성하여 설치합니다.
 
-```r
+```{r}
 library("theeuh")
 install_onnxruntime(envname = "r-theeuh")
 ```
