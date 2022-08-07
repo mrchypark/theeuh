@@ -36,21 +36,21 @@ install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 
 If you don't have any knowledge of python environment, miniconda is good choice.
 
+### 2-1. miniconda
+
 ```r
 reticulate::install_miniconda()
 ```
-
 After install miniconda, `{reticulate}` create conda env named `r-reticulate`.
+
+### 2-2. onnxruntime package
+
 `{theeuh}` package provide `install_onnxruntime()` that easy install onnxruntime.
+`install_onnxruntime()` install `onnruntime` package on active env.
+If you don't know mush about env, I strongly recommend use new env name like `r-theeuh`.
 
 ```r
 library("theeuh")
-install_onnxruntime()
-```
-
-if you want to use conda env for `{theeuh}` only, add env name to create.
-
-```r
 install_onnxruntime(envname = "r-theeuh")
 ```
 

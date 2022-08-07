@@ -8,3 +8,4 @@
 ^pkgdown$
 ^data-raw$
 .logo.R
+^vignettes/articles$
