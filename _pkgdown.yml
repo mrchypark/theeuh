@@ -7,3 +7,10 @@ template:
   params:
     toggle: manual
     ganalytics: UA-47822682-14
+navbar:
+  components:
+    articles:
+      text: 한글소개
+      menu:
+      - text: readme
+        href: articles/readme-kr.html
