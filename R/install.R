@@ -51,6 +51,9 @@ install_onnxruntime <- function(method = c("auto", "virtualenv", "conda"),
     }
   }
 
+  stopifnot("version must be string format semver without 'v'." = is_semver(version))
+  stopifnot("version must be exist on onnxruntime python package." = valid_version(version))
+
   packages <- c(paste0("onnxruntime==", version))
 
   reticulate::py_install(

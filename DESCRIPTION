@@ -17,7 +17,8 @@ BugReports: https://github.com/mrchypark/theeuh/issues
 SystemRequirements: onnxruntime (https://onnxruntime.ai/)
 Imports:
     reticulate,
-    rstudioapi (>= 0.7)
+    rstudioapi (>= 0.7),
+    semver
 Suggests: 
     covr,
     testthat (>= 3.0.0)
