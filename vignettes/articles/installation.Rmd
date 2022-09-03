@@ -1,5 +1,5 @@
 ---
-title: "패키지 설치"
+title: "패키지 설치 상세"
 ---
 
 ```{r, include = FALSE}
@@ -12,3 +12,4 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(theeuh)
 ```
+
