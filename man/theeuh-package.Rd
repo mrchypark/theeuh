@@ -4,18 +4,18 @@
 \name{theeuh-package}
 \alias{theeuh}
 \alias{theeuh-package}
-\title{theeuh: Add Spaces To Korean Sentences}
+\title{theeuh: Write Spaces To Korean Sentences}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides a function to add spaces to Korean sentences.
+Provides a function to write spaces to Korean sentences.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/mrchypark/kordivider}
-  \item \url{https://mrchypark.github.io/kordivider/}
-  \item Report bugs at \url{https://github.com/mrchypark/kordivider/issues}
+  \item \url{https://github.com/mrchypark/theeuh}
+  \item \url{https://mrchypark.github.io/theeuh/}
+  \item Report bugs at \url{https://github.com/mrchypark/theeuh/issues}
 }
 
 }
