@@ -1,0 +1,15 @@
+---
+title: "패키지 설치 상세"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(theeuh)
+```
+
