@@ -22,6 +22,7 @@ space <- function(ko_sents) {
     out <- sess$run(NULL, list(input_1 = reticulate::np_array(mat, dtype = "float32")))
     return(trimws(make_pred_sent(ko_sent_, out[[1]])))
   }
+
   ress <- sapply(ko_sents,
                  spacing_,
                  simplify = F,
