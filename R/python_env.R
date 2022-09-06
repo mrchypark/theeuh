@@ -8,6 +8,6 @@ check_conda_set <- function(envnm) {
 conda_set <- function(envnm) {
   reticulate::conda_create(
     envname = envnm,
-    environment = file.path(system.file(package = "theeuh"), "", 'environment.yml')
+    environment = file.path(system.file(package = "theeuh"), 'environment.yml')
   )
 }

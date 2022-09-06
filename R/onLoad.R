@@ -2,8 +2,8 @@
 
 .onLoad <- function(libname, pkgname) {
 
-  if (as.logical(Sys.getenv("USE_THEEUH_PYTHON_ENV", unset = "TRUE"))) {
-    envnm <- Sys.getenv("THEEUH_PYTHON_ENV_NAME", unset = "r-theeuh")
+  if (getOption("theeuh.use_autoconfig", default = TRUE)) {
+    envnm <- getOption("theeuh.conda_envnm", default = "r-theeuh")
     if (!check_conda_set(envnm)) conda_set(envnm)
     reticulate::use_condaenv(envnm)
   }

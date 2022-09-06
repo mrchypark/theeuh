@@ -1,5 +1,5 @@
 check_model_set <- function() {
-  length(ls(envir = .theeuhenv)) == 4
+  length(ls(envir = .theeuhenv)) == 3
 }
 
 #' @importFrom reticulate import
