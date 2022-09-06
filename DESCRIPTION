@@ -14,7 +14,8 @@ RoxygenNote: 7.2.1
 URL: https://github.com/mrchypark/theeuh,
     https://mrchypark.github.io/theeuh/
 BugReports: https://github.com/mrchypark/theeuh/issues
-SystemRequirements: onnxruntime (https://onnxruntime.ai/)
+SystemRequirements: onnxruntime (https://onnxruntime.ai/) and 
+                conda (https://docs.conda.io/en/latest/miniconda.html). 
 Imports:
     reticulate,
     semver
