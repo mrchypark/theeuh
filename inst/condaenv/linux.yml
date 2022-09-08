@@ -36,4 +36,4 @@ dependencies:
     - protobuf==4.21.5
     - pyparsing==3.0.9
     - sympy==1.11.1
-prefix: /home/rstudio/.local/share/r-miniconda/envs/r-theeuh
+prefix: /home/runner/.local/share/r-miniconda/envs/r-theeuh

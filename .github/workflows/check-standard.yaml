@@ -45,6 +45,7 @@ jobs:
 
       - name: Install Miniconda
         run: |
+          paste0(Sys.info()["sysname"], Sys.info()["machine"])
           reticulate::install_miniconda()
           reticulate::conda_create("r-theeuh", python_version="3.10.6")
           reticulate::conda_install("r-theeuh", "onnxruntime", pip = T)

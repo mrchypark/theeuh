@@ -31,4 +31,4 @@ dependencies:
     - pyparsing==3.0.9
     - pyreadline3==3.4.1
     - sympy==1.11.1
-prefix: C:\Users\MRCHYP~1\AppData\Local\R-MINI~1\envs\r-theeuh
+prefix: C:\Users\RUNNER~1\AppData\Local\R-MINI~1\envs\r-theeuh
