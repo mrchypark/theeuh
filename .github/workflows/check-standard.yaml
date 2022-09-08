@@ -43,16 +43,14 @@ jobs:
         with:
           extra-packages: rcmdcheck remotes covr
 
-      - name: Install package + deps
-        run: remotes::install_local(dependencies = TRUE, force = TRUE)
-        shell: Rscript {0}
-
       - name: Install Miniconda
-        run: reticulate::install_miniconda()
-        shell: Rscript {0}
-
-      - name: Install onnxruntime
-        run: theeuh::install_onnxruntime()
+        run: |
+          paste0(Sys.info()["sysname"], Sys.info()["machine"])
+          reticulate::install_miniconda()
+          reticulate::conda_create("r-theeuh", python_version="3.10.6")
+          reticulate::conda_install("r-theeuh", "onnxruntime", pip = T)
+          reticulate::conda_export("r-theeuh")
+          cat(readLines("environment.yml"), sep="\n")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
