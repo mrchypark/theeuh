@@ -2,13 +2,12 @@
 #'
 #' @param ko_sents target korean sentences.
 #'
-#' @importFrom reticulate np_array
 #' @export
 space <- function(ko_sents) {
 
   if (!check_model_set()) load_models()
 
-  sess <- get("sess", envir = .theeuhenv)
+  model <- get("model", envir = .theeuhenv)
 
   spacing_ <- function(ko_sent) {
     if (nchar(ko_sent) > 198) {
@@ -19,7 +18,8 @@ space <- function(ko_sents) {
     }
     ko_sent_ <- substr(ko_sent, 1, 198)
     mat <- sent_to_matrix(ko_sent_)
-    out <- sess$run(NULL, list(input_1 = reticulate::np_array(mat, dtype = "float32")))
+
+    out <- model(torch_tensor(mat,dtype=torch_float32()))
     return(trimws(make_pred_sent(ko_sent_, out[[1]])))
   }
   ress <- sapply(ko_sents,

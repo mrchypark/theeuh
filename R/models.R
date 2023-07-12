@@ -1,8 +1,9 @@
 check_model_set <- function() {
-  length(ls(envir = .theeuhenv)) == 3
+  length(ls(envir = .theeuhenv)) == 2
 }
 
 #' @importFrom reticulate import
+#' @importFrom torch torch_load
 load_models <- function() {
   w2idx <-
     file.path(system.file(package = "theeuh"), "model", 'w2idx')
@@ -16,12 +17,10 @@ load_models <- function() {
   assign("hash", hash, envir = .theeuhenv)
 
   model_file <-
-    file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
+    file.path(system.file(package = "theeuh"), "model", 'kospacing')
 
-  ort <- reticulate::import("onnxruntime")
-  assign("ort", ort, envir = .theeuhenv)
-  sess <- ort$InferenceSession(model_file)
-  assign("sess", sess, envir = .theeuhenv)
-
+  model <- torch_load(model_file)
+  assign("model", model, envir = .theeuhenv)
 }
+
 
