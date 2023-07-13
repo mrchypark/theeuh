@@ -81,12 +81,13 @@ state_dict$fc3.weight <- state_dict$fc3.weight$view(c(1, 50))
 model$load_state_dict(state_dict)
 
 torch_save(model, "inst/model/kospacing")
+model <- torch_load("inst/model/kospacing")
 
-ko_sent_ <- substr("tests", 1, 198)
+ko_sent_ <- substr("안녕하세요저는박찬엽입니다", 1, 198)
 mat <- sent_to_matrix(ko_sent_)
 
 out <- model(torch_tensor(mat,dtype=torch_long()))
-
+trimws(make_pred_sent(ko_sent_, array(as_array(out), 200)))
 
 ## for test
 

@@ -2,6 +2,7 @@
 #'
 #' @param ko_sents target korean sentences.
 #'
+#' @importFrom torch torch_tensor torch_long
 #' @export
 space <- function(ko_sents) {
 
@@ -19,7 +20,7 @@ space <- function(ko_sents) {
     ko_sent_ <- substr(ko_sent, 1, 198)
     mat <- sent_to_matrix(ko_sent_)
 
-    out <- model(torch_tensor(mat,dtype=torch_long()))
+    out <- model(torch::torch_tensor(mat,dtype = torch::torch_long()))
     return(trimws(make_pred_sent(ko_sent_, array(as_array(out), 200))))
   }
   ress <- sapply(ko_sents,

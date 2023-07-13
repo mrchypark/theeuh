@@ -2,7 +2,6 @@ check_model_set <- function() {
   length(ls(envir = .theeuhenv)) == 2
 }
 
-#' @importFrom reticulate import
 #' @importFrom torch torch_load
 load_models <- function() {
   w2idx <-
@@ -19,7 +18,7 @@ load_models <- function() {
   model_file <-
     file.path(system.file(package = "theeuh"), "model", 'kospacing')
 
-  model <- torch_load(model_file)
+  model <- torch::torch_load(model_file)
   assign("model", model, envir = .theeuhenv)
 }
 
