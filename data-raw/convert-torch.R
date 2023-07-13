@@ -1,111 +1,142 @@
-## onnx_pytorch fail
-## 이게 그래도 gpu만 구현하면 되는 것인가 싶네.
-## 기본값 문제가 있는데, 이건 실행해보고 문제인지 확인해야 함.
-## library(reticulate)
-py_install("onnx_pytorch", pip = T)
-op <- import("onnx_pytorch")
-
-model_file <-
-  file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
-
-op$code_gen$gen(model_file, "./inst")
-# > op$code_gen$gen(model_file, "./inst")
-# WARNING:root:Cannot get default value for to of Cast.
-# WARNING:root:Cannot get default value for perm of Transpose.
-# WARNING:root:Cannot get default value for dilations of Conv.
-# WARNING:root:Cannot get default value for kernel_shape of Conv.
-# WARNING:root:Cannot get default value for pads of Conv.
-# WARNING:root:Cannot get default value for strides of Conv.
-# WARNING:root:Cannot get default value for axis of Concat.
-# Error in py_call_impl(callable, dots$args, dots$keywords) :
-#   NotImplementedError: OpCodeGenerator is unimplemented for GRU.
-
-
-# onnx2torch fail!
-# gru 도 있어야 함
-library(reticulate)
-py_install("onnx2torch", pip = T)
-ot <- import("onnx2torch")
-md <- ot$convert(model_file)
-# Error in py_call_impl(callable, dots$args, dots$keywords) :
-#   NotImplementedError: Only symmetric padding is implemented ([0, 1])
-
-# https://gist.github.com/qinjian623/6aa777037534c1c1dccbb66f832e93b8
-# cast가 없어서 실패. 코드를 보면  gru도 없음
-
-
-
-## 백터 크기를 모델에 저장
-## https://gaussian37.github.io/dl-pytorch-deploy/
-library(reticulate)
-model_file <-
-  file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
-onnx <- import("onnx")
-
-onnx$save_model(
-  onnx$shape_inference$infer_shapes(onnx$load_model(model_file)),
-  "./inst/model/kospacing2.onnx"
-)
-
-
-
-library(reticulate)
-model_file <-
-  file.path(system.file(package = "theeuh"), "model", 'kospacing.onnx')
-onnx <- import("onnx")
-mdl <- onnx$load_model(model_file)
-
-install.packages("torch")
 library(torch)
-library(reticulate)
 
-Spacing <- torch::nn_module(
-  "Spacing",
-  initialize = function() {
-    self$embedding <- nn_embedding(1951, 100, .weight = embd)
-    self$conv1 <- nn_sequential(nn_conv_transpose1d(128, 100, 1),
-                                nn_relu())
-    self$conv2 <- nn_sequential(nn_conv_transpose1d(256, 100, 2),
-                                nn_relu())
-    self$conv3 <- nn_sequential(nn_conv_transpose1d(128, 100, 3),
-                                nn_relu())
-    self$conv4 <- nn_sequential(nn_conv_transpose1d(64, 100, 4),
-                                nn_relu())
-    self$conv5 <- nn_sequential(nn_conv_transpose1d(32, 100, 5),
-                                nn_relu())
-    self$batchnorm <- nn_batch_norm1d(608, 1e-06, 0.99)
-    slef$gru <- nn_gru(150, 50)
+sent_to_matrix <- function(ko_sent) {
+  w2idx_tbl <- readRDS("inst/model/w2idx")
 
+  hash <- sapply(unique(w2idx_tbl$Keys), function(x) {
+    w2idx_tbl[w2idx_tbl$Keys == x, 2]
+  }, simplify = FALSE)
+  ko_sent_ <- paste0('\u00ab', ko_sent, '\u00bb')
+  ko_sent_ <- gsub('\\s', '^', ko_sent_)
+
+  #encoding and padding
+  encoded <-
+    sapply(strsplit(enc2utf8(ko_sent_), split = '')[[1]], function(x) {
+      ret <- hash[[x]]
+      if (is.null(ret))
+        ret <- hash[["__ETC__"]]
+      ret
+    })
+
+  mat <- matrix(data = hash[['__PAD__']],
+                nrow = 1,
+                ncol = 200)
+  mat[, 1:length(encoded)] <-  encoded
+  return(mat)
+}
+
+MyModel <- nn_module(
+  "MyModel",
+  initialize = function(){
+    self$embedding <- nn_embedding(num_embeddings=1951, embedding_dim=100)
+    self$conv1 <- nn_conv1d(100, 128, 1)
+    self$conv2 <- nn_conv1d(100, 256, 2, padding=1)
+    self$conv3 <- nn_conv1d(100, 128, 3, padding=1)
+    self$conv4 <- nn_conv1d(100, 64, 4, padding=2)
+    self$conv5 <- nn_conv1d(100, 32, 5, padding=2)
+    self$batch_norm <- nn_batch_norm1d(608)
+    self$fc1 <- nn_linear(608, 300)
+    self$fc2 <- nn_linear(300, 150)
+    self$gru <- nn_gru(150, 50, batch_first=TRUE)
+    self$fc3 <- nn_linear(50, 1)
   },
-  forward = function(x) {
-    emb <- self$embedding(x)
-    catr <-
-      torch_cat(list(
-        self$conv1(emb),
-        self$conv2(emb),
-        self$conv3(emb),
-        self$conv4(emb),
-        self$conv5(emb)
-      ))
-    bn <- self$batchnorm(catr)
-    td <- torch_transpose(bn, 1, 2)
-    td <- torch_reshape(td, list(2))
-    td <- torch_matmul(td)
-
+  forward = function(x){
+    x <- self$embedding(x)
+    xr <- torch_reshape(x, c(1,100,200))
+    x1 <- nnf_relu(self$conv1(xr)[,,1:200])
+    x2 <- nnf_relu(self$conv2(xr)[,,1:200])
+    x3 <- nnf_relu(self$conv3(xr)[,,1:200])
+    x4 <- nnf_relu(self$conv4(xr)[,,1:200])
+    x5 <- nnf_relu(self$conv5(xr)[,,1:200])
+    x <- torch_cat(list(x1, x2, x3, x4, x5), dim=2)
+    x <- self$batch_norm(x)
+    x <- torch_reshape(x, c(1, 200, 608))
+    x <- nnf_relu(self$fc1(x))
+    x <- nnf_relu(self$fc2(x))
+    x <- self$gru(x)
+    x <- nnf_sigmoid(self$fc3(x[[1]]))
+    return (x)
   }
 )
 
 
+model <- MyModel()
 
 
-torch_transpose()
+state_dict <- torch::load_state_dict("inst/model/kospacing2.pth")
 
-nn_batch_norm1d()
-torch_transpose()
-torch_reshape()
-torch_matmul()
-torch_add()
-nn_gru()
-torch_sigmoid()
+state_dict$embedding.weight <- state_dict$embedding.weight$view(c(1951, 100))
+
+state_dict$fc1.weight <- state_dict$fc1.weight$reshape(c(300, 608))
+state_dict$fc2.weight <- state_dict$fc2.weight$reshape(c(150, 300))
+
+state_dict$gru.weight_ih_l1 <- state_dict$gru.weight_ih_l0$view(c(150, 150))
+state_dict$gru.weight_hh_l1 <- state_dict$gru.weight_hh_l0$view(c(150, 50))
+
+state_dict$gru.bias_ih_l1 <- state_dict$gru.bias_ih_l0$view(c(150))
+state_dict$gru.bias_hh_l1 <- state_dict$gru.bias_hh_l0$view(c(150))
+
+state_dict$fc3.weight <- state_dict$fc3.weight$view(c(1, 50))
+
+model$load_state_dict(state_dict)
+
+torch_save(model, "inst/model/kospacing")
+
+ko_sent_ <- substr("tests", 1, 198)
+mat <- sent_to_matrix(ko_sent_)
+
+out <- model(torch_tensor(mat,dtype=torch_long()))
+
+
+## for test
+
+torch_tensor(mat,dtype=torch_long()) %>%
+  model$embedding$forward() %>%
+  torch_reshape(c(1,100,200)) %>%
+  model$conv1() %>%
+  .[,,1:200] %>%
+  nnf_relu() -> c1
+
+torch_tensor(mat,dtype=torch_long()) %>%
+  model$embedding$forward() %>%
+  torch_reshape(c(1,100,200)) %>%
+  model$conv2() %>%
+  .[,,1:200] %>%
+  nnf_relu() -> c2
+
+torch_tensor(mat,dtype=torch_long()) %>%
+  model$embedding$forward() %>%
+  torch_reshape(c(1,100,200)) %>%
+  model$conv3() %>%
+  .[,,1:200] %>%
+  nnf_relu() -> c3
+
+torch_tensor(mat,dtype=torch_long()) %>%
+  model$embedding$forward() %>%
+  torch_reshape(c(1,100,200)) %>%
+  model$conv4() %>%
+  .[,,1:200] %>%
+  nnf_relu() -> c4
+
+torch_tensor(mat,dtype=torch_long()) %>%
+  model$embedding$forward() %>%
+  torch_reshape(c(1,100,200)) %>%
+  model$conv5() %>%
+  .[,,1:200] %>%
+  nnf_relu() -> c5
+
+torch_cat(list(c1,c2,c3,c4,c5), dim = 2L) %>%
+  # torch_reshape(c(1,200,608)) %>%
+  model$batch_norm$forward() %>%
+  torch_reshape(c(1, 200, 608)) %>%
+  model$fc1$forward() %>%
+  nnf_relu() %>%
+  model$fc2$forward() %>%
+  nnf_relu() %>%
+  model$gru$forward() %>%
+  .[[1]] %>%
+  model$fc3$forward() %>%
+  nnf_sigmoid() %>%
+  as_array() -> res
 
 

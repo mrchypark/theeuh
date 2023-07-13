@@ -20,7 +20,7 @@ space <- function(ko_sents) {
     mat <- sent_to_matrix(ko_sent_)
 
     out <- model(torch_tensor(mat,dtype=torch_long()))
-    return(trimws(make_pred_sent(ko_sent_, out[[1]])))
+    return(trimws(make_pred_sent(ko_sent_, array(as_array(out), 200))))
   }
   ress <- sapply(ko_sents,
                  spacing_,
