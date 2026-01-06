@@ -26,6 +26,6 @@ Config/testthat/edition: 3
 Config/reticulate: 
   list(
     packages = list(
-      list(package = "onnxruntime", version = "1.12.0", pip = TRUE)
+      list(package = "onnxruntime", version = "1.23.2", pip = TRUE)
     )
   )
