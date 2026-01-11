@@ -7,7 +7,7 @@
 install_onnxruntime(
   method = c("auto", "virtualenv", "conda"),
   conda = "auto",
-  version = "1.12.0",
+  version = "1.23.2",
   envname = NULL,
   restart_session = TRUE,
   conda_python_version = NULL,
