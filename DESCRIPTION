@@ -14,7 +14,7 @@ RoxygenNote: 7.3.3
 URL: https://github.com/mrchypark/theeuh,
     https://mrchypark.github.io/theeuh/
 BugReports: https://github.com/mrchypark/theeuh/issues
-Remotes: github::mchypark/churon@v0.1.7
+Remotes: github::mrchypark/churon@v0.1.7
 Suggests: 
     covr,
     testthat (>= 3.0.0)
