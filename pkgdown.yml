@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   articles/readme-kr: readme-kr.html
-last_built: 2026-01-15T17:02Z
+last_built: 2026-01-15T17:08Z
 urls:
   reference: https://mrchypark.github.io/theeuh/reference
   article: https://mrchypark.github.io/theeuh/articles
