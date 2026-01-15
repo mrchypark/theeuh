@@ -1,7 +1,10 @@
+#' @importFrom churon onnx_session onnx_run
+NULL
+
 .theeuhenv <- new.env()
 
 check_model_set <- function() {
-  length(ls(envir = .theeuhenv)) == 2
+  all(c("hash", "sess") %in% ls(envir = .theeuhenv))
 }
 
 load_models <- function() {
