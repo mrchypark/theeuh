@@ -44,9 +44,11 @@ jobs:
           extra-packages: rcmdcheck remotes covr
 
       - name: Install package + deps
-        run: remotes::install_local(dependencies = TRUE, force = TRUE)
+        run: |
+          remotes::install_local(dependencies = TRUE, force = TRUE)
+          install.packages('churon', repos = c('https://mrchypark.r-universe.dev', 'https://cloud.r-project.org'))
         shell: Rscript {0}
-        
+
       - uses: r-lib/actions/check-r-package@v2
 
       - name: Test coverage
