@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/mrchypark/theeuh/blob/main/DESCRIPTION)
 
 Park C (2026). *theeuh: Write Spaces To Korean Sentences*. R package
-version 0.1.2, <https://github.com/mrchypark/theeuh>.
+version 0.1.3, <https://github.com/mrchypark/theeuh>.
 
     @Manual{,
       title = {theeuh: Write Spaces To Korean Sentences},
       author = {Chanyub Park},
       year = {2026},
-      note = {R package version 0.1.2},
+      note = {R package version 0.1.3},
       url = {https://github.com/mrchypark/theeuh},
     }
