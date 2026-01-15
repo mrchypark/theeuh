@@ -2,7 +2,6 @@
 #'
 #' @param ko_sents target korean sentences.
 #'
-#' @importFrom reticulate np_array
 #' @export
 space <- function(ko_sents) {
 
@@ -19,7 +18,12 @@ space <- function(ko_sents) {
     }
     ko_sent_ <- substr(ko_sent, 1, 198)
     mat <- sent_to_matrix(ko_sent_)
-    out <- sess$run(NULL, list(input_1 = reticulate::np_array(mat, dtype = "float32")))
+    
+    # Use churon for inference
+    # churon::onnx_run expects a named list of inputs
+    out <- churon::onnx_run(sess, list(input_1 = mat))
+    
+    # out is a list of output tensors, take the first one
     return(trimws(make_pred_sent(ko_sent_, out[[1]])))
   }
   ress <- sapply(ko_sents,
