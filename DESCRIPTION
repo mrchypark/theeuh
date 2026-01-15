@@ -14,8 +14,9 @@ RoxygenNote: 7.3.3
 URL: https://github.com/mrchypark/theeuh,
     https://mrchypark.github.io/theeuh/
 BugReports: https://github.com/mrchypark/theeuh/issues
-Repositories:
-    mrchypark: https://mrchypark.r-universe.dev
+AdditionalRepositories:
+    url: https://mrchypark.r-universe.dev
+    type: URL
 Imports:
     churon
 Remotes:
