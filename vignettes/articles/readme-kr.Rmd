@@ -28,9 +28,6 @@ coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](h
 
 ## 설치
 
-`python` 의 `onnxruntime` 패키지를 사용하므로 설치 지침을 꼭 읽고 사용해주세요.
-설치는 3단계로 진행합니다.
-
 ### 1. 패키지 설치
 
 ``` r
@@ -40,36 +37,6 @@ install.packages("theeuh")
 # 개발버전 설치 r-universe
 install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 ```
-
-### 2. 파이선 의존성 설치
-
-`{theeuh}` 패키지는 `onnxruntime`이라는 파이썬 패키지를 사용합니다.
-그래서 이 둘을 먼저 설치하고 R에서 사용할 수 있도록 연결해야 합니다.
-
-파이썬 설치나 R과의 연결에 대해 잘 알지 못하실 수 있습니다.
-그렇다면 새롭게 `miniconda`를 설치하는 것을 권장합니다.
-
-### 2-1. miniconda 설치
-
-```r
-reticulate::install_miniconda()
-```
-
-`miniconda` 가 설치되고 나면 `{reticulate}` 패키지는 `r-reticulate`라는 conda 환경을 기본값으로 생성합니다.
-
-### 2-2. onnxruntime package
-
-`{theeuh}` 패키지는 `onnxruntime` 파이썬 패키지 설치를 위해  `install_onnxruntime()` 함수를 제공합니다.
-`install_onnxruntime()` 함수는 활성화된 가상환경에 `onnxruntime` 패키지를 설치합니다.
-가상환경에 대해 잘 모르신다면 새로운 가상환경 이름(예>`r-theeuh``)을 사용하기를 추천합니다.
-기존에 없는 `envname`을 추가하면 새 가상환경을 생성하여 설치합니다.
-
-```{r}
-library("theeuh")
-install_onnxruntime(envname = "r-theeuh")
-```
-
-`install_onnxruntime()` 함수의 헬프 페이지에서 더 많은 정보를 확인하세요.
 
 ## 사용법
 
