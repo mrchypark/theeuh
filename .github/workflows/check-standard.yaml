@@ -29,7 +29,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -39,15 +39,14 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install churon from r-universe
+        run: install.packages('churon', repos = c('https://mrchypark.r-universe.dev', 'https://cloud.r-project.org'))
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck remotes covr
-
-      - name: Install package + deps
-        run: |
-          install.packages('churon', repos = c('https://mrchypark.r-universe.dev', 'https://cloud.r-project.org'))
-          remotes::install_local(dependencies = TRUE, force = TRUE)
-        shell: Rscript {0}
+          extra-packages: any::rcmdcheck, any::covr
+          dependencies: '"hard"'
 
       - uses: r-lib/actions/check-r-package@v2
 
