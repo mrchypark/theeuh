@@ -1,10 +1,9 @@
-pandoc: 2.14.2
-pkgdown: 2.0.6
+pandoc: 3.1.11
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  readme-kr: readme-kr.html
-last_built: 2022-09-03T10:36Z
+  articles/readme-kr: readme-kr.html
+last_built: 2026-01-15T17:02Z
 urls:
   reference: https://mrchypark.github.io/theeuh/reference
   article: https://mrchypark.github.io/theeuh/articles
-

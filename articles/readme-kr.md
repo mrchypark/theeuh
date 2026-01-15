@@ -1,0 +1,45 @@
+# readme-kr
+
+## theeuh
+
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R-CMD-check](https://github.com/mrchypark/theeuh/workflows/R-CMD-check/badge.svg)](https://github.com/mrchypark/theeuh/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/theeuh)](https://CRAN.R-project.org/package=theeuh)
+[![runiverse-name](https://mrchypark.r-universe.dev/badges/:name)](https://mrchypark.r-universe.dev/)
+[![runiverse-package](https://mrchypark.r-universe.dev/badges/theeuh)](https://mrchypark.r-universe.dev/ui#packages)
+[![metacran
+downloads](https://cranlogs.r-pkg.org/badges/theeuh)](https://cran.r-project.org/package=theeuh)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/theeuh)](https://cran.rstudio.com/package=theeuh)
+[![Codecov test
+coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/theeuh?branch=main)
+
+`{theeuh(띄어)}` 패키지는 한글 띄어쓰기를 교정하는 기능을 제공합니다.
+
+### 설치
+
+#### 1. 패키지 설치
+
+``` r
+# CRAN 아직 안됩니다!
+install.packages("theeuh")
+
+# 개발버전 설치 r-universe
+install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
+```
+
+### 사용법
+
+``` r
+library("theeuh")
+space("김형호영화시장분석가는'1987'의네이버영화정보네티즌10점평에서언급된단어들을지난해12월27일부터올해1월10일까지통계프로그램R을이용하여텍스트마이닝하여분석했다.")
+#> ChurOn: Setup ONNX Runtime at /home/runner/work/_temp/Library/churon/onnxruntime/lib/libonnxruntime.so
+#> [1] "김형호 영화시장 분석가는 '1987'의 네이버 영화 정보 네티즌 10점 평에서 언급된 단어들을 지난해 12월 27일부터 올해 1월 10일까지 통계 프로그램 R을 이용하여 텍스트마이닝하여 분석했다."
+```
+
+### 특별 감사
+
+원본 패키지는 [전희원](https://github.com/haven-jeon)님이 만드신
+[KoSpacing](https://github.com/haven-jeon/KoSpacing)입니다. 많은 부분의
+코드와 모델파일들은 원본 패키지에 있는 것을 사용했습니다.
