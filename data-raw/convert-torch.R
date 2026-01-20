@@ -2,7 +2,7 @@
 ## 이게 그래도 gpu만 구현하면 되는 것인가 싶네.
 ## 기본값 문제가 있는데, 이건 실행해보고 문제인지 확인해야 함.
 ## library(reticulate)
-py_install("onnx_pytorch", pip = T)
+py_install("onnx_pytorch", pip = TRUE)
 op <- import("onnx_pytorch")
 
 model_file <-
@@ -24,7 +24,7 @@ op$code_gen$gen(model_file, "./inst")
 # onnx2torch fail!
 # gru 도 있어야 함
 library(reticulate)
-py_install("onnx2torch", pip = T)
+py_install("onnx2torch", pip = TRUE)
 ot <- import("onnx2torch")
 md <- ot$convert(model_file)
 # Error in py_call_impl(callable, dots$args, dots$keywords) :

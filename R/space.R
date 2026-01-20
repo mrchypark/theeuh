@@ -28,8 +28,8 @@ space <- function(ko_sents) {
   }
   ress <- sapply(ko_sents,
                  spacing_,
-                 simplify = F,
-                 USE.NAMES = F)
+                 simplify = FALSE,
+                 USE.NAMES = FALSE)
 
   if (length(ress) == 1)
     ress <- ress[[1]]
