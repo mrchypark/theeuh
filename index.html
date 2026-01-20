@@ -54,7 +54,7 @@
 
     <a class="navbar-brand me-2" href="index.html">theeuh</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,39 +110,13 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> has 2 step installation</p>
-<div class="section level3">
-<h3 id="id_1-package">1. Package<a class="anchor" aria-label="anchor" href="#id_1-package"></a>
-</h3>
+<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> depends on <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> package which handles ONNX runtime automatically.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CRAN NOT YET!!!!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"theeuh"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># dev version r-universe</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'theeuh'</span>, repos <span class="op">=</span> <span class="st">"https://mrchypark.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="id_2-python-dependency">2. Python dependency<a class="anchor" aria-label="anchor" href="#id_2-python-dependency"></a>
-</h3>
-<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> use <code>onnxruntime</code>. So, you need to install <code>python</code> and <code>onnxruntime</code> package.</p>
-<p>If you don’t have any knowledge of python environment, miniconda is good choice.</p>
-</div>
-<div class="section level3">
-<h3 id="id_2-1-miniconda">2-1. miniconda<a class="anchor" aria-label="anchor" href="#id_2-1-miniconda"></a>
-</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/install_miniconda.html" class="external-link">install_miniconda</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>After install miniconda, <a href="https://rstudio.github.io/reticulate/" class="external-link">reticulate</a> create conda env named <code>r-reticulate</code>.</p>
-</div>
-<div class="section level3">
-<h3 id="id_2-2-onnxruntime-package">2-2. onnxruntime package<a class="anchor" aria-label="anchor" href="#id_2-2-onnxruntime-package"></a>
-</h3>
-<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> package provide <code>install_onnxruntime()</code> that easy install onnxruntime. <code>install_onnxruntime()</code> install <code>onnruntime</code> package on active env. If you don’t know mush about env, I strongly recommend use new env name like <code>r-theeuh</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mrchypark/theeuh" class="external-link">"theeuh"</a></span><span class="op">)</span></span>
-<span><span class="fu">install_onnxruntime</span><span class="op">(</span>envname <span class="op">=</span> <span class="st">"r-theeuh"</span><span class="op">)</span></span></code></pre></div>
-<p>more info about <code>install_onnxruntime()</code>, please check help page.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
