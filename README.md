@@ -20,9 +20,7 @@ The goal of theeuh is to write space on korean sentense corractly.
 
 ## Installation
 
-`{theeuh}` has 2 step installation
-
-### 1. Package
+`{theeuh}` depends on `{churon}` package which handles ONNX runtime automatically.
 
 ``` r
 # CRAN NOT YET!!!!
@@ -31,32 +29,6 @@ install.packages("theeuh")
 # dev version r-universe
 install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
 ```
-
-### 2. Python dependency
-
-`{theeuh}` use `onnxruntime`. So, you need to install `python` and `onnxruntime` package.
-
-If you don't have any knowledge of python environment, miniconda is good choice.
-
-### 2-1. miniconda
-
-```r
-reticulate::install_miniconda()
-```
-After install miniconda, `{reticulate}` create conda env named `r-reticulate`.
-
-### 2-2. onnxruntime package
-
-`{theeuh}` package provide `install_onnxruntime()` that easy install onnxruntime.
-`install_onnxruntime()` install `onnruntime` package on active env.
-If you don't know mush about env, I strongly recommend use new env name like `r-theeuh`.
-
-```r
-library("theeuh")
-install_onnxruntime(envname = "r-theeuh")
-```
-
-more info about `install_onnxruntime()`, please check help page.
 
 ## Usage
 
