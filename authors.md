@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/mrchypark/theeuh/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/mrchypark/theeuh/blob/v0.1.4/DESCRIPTION)
 
 Park C (2026). *theeuh: Write Spaces To Korean Sentences*. R package
 version 0.1.4, <https://github.com/mrchypark/theeuh>.
