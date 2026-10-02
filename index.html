@@ -78,7 +78,7 @@
 <span>  <span class="st">"theeuh"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://mrchypark.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> uses <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> for ONNX inference. Before first use, install ONNX Runtime in the current R session:</p>
+<p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a> uses <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> for ONNX inference. On macOS arm64 and Linux x64/arm64, install ONNX Runtime in the current R session before first use:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">churon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/churon/man/install_onnx_runtime.html" class="external-link">install_onnx_runtime</a></span><span class="op">(</span>destdir <span class="op">=</span> <span class="st">"~/.local/share/churon"</span><span class="op">)</span></span>
 <span><span class="va">runtime_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ORT_DYLIB_PATH"</span><span class="op">)</span></span>
@@ -87,6 +87,36 @@
 <pre><code>ORT_DYLIB_PATH=/path/printed/above
 ORT_DISABLE_TELEMETRY=1</code></pre>
 <p>ONNX Runtime supports macOS arm64, Linux x64/arm64, and Windows x64; macOS x86_64 is unsupported for ONNX Runtime 1.28.0 and later. The telemetry setting also covers sessions initialized by other packages.</p>
+<div class="section level3">
+<h3 id="windows-x64">Windows x64<a class="anchor" aria-label="anchor" href="#windows-x64"></a>
+</h3>
+<p>The CRAN release of <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> 0.1.13 cannot install ONNX Runtime on Windows: its installer calls <code>utils::unzip(..., quiet = TRUE)</code>, but Windows base R does not accept that argument. Until <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> fixes this, download the official <a href="https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/onnxruntime-win-x64-1.29.0.zip" class="external-link">ONNX Runtime 1.29.0 Windows x64 archive</a> and install it with base R. Choose a persistent directory for <code>destdir</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">destdir</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/your-name/AppData/Local/churon"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">destdir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">zip_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/"</span>,</span>
+<span>  <span class="st">"onnxruntime-win-x64-1.29.0.zip"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">zip_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"onnxruntime-win-x64-1.29.0.zip"</span><span class="op">)</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">zip_url</span>, <span class="va">zip_file</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">zip_file</span>, exdir <span class="op">=</span> <span class="va">destdir</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">zip_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">runtime_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
+<span>    <span class="va">destdir</span>, <span class="st">"onnxruntime-win-x64-1.29.0"</span>, <span class="st">"lib"</span>, <span class="st">"onnxruntime.dll"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  winslash <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>ORT_DYLIB_PATH <span class="op">=</span> <span class="va">runtime_path</span>, ORT_DISABLE_TELEMETRY <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span>
+<span><span class="va">runtime_path</span></span></code></pre></div>
+<p>For later R sessions, save the printed absolute path in <code>~/.Renviron</code>, restart R, then load <a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a>:</p>
+<pre><code>ORT_DYLIB_PATH=C:/Users/your-name/AppData/Local/churon/onnxruntime-win-x64-1.29.0/lib/onnxruntime.dll
+ORT_DISABLE_TELEMETRY=1</code></pre>
+</div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>

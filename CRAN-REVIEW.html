@@ -91,10 +91,11 @@
 <p>Native-code, Rust vendoring, compiled executable, C/C++ registration and compiled-code portability rules do not apply to theeuh’s own source. Runtime inference is optional on platforms without supported ONNX binaries.</p>
 <div class="section level2">
 <h2 id="verification">Verification<a class="anchor" aria-label="anchor" href="#verification"></a></h2>
-<ul><li>Local macOS arm64, R 4.5.2: 23 expectations pass with ONNX Runtime 1.29.0.</li>
+<ul><li>Local macOS arm64, R 4.5.2: 31 expectations pass with ONNX Runtime 1.29.0, including restoration after failed session construction. Coverage: 98.59%.</li>
 <li>Built archive: R CMD check –as-cran –no-manual has no errors or warnings; the only NOTE is New submission. Package-managed telemetry opt-out leaves no temporary diagnostic files. External clock probe disabled; timestamps still checked. All 14 checked package URLs are valid.</li>
 <li>
-<a href="https://mac.R-project.org/macbuilder/results/1790948116-a032d2ed9617f2fe/" class="external-link">Official macOS R 4.6.1 builder</a>: no errors, warnings or notes; PDF manual check passes.</li>
+<a href="https://mac.R-project.org/macbuilder/results/1790948418-19d2219072629121/" class="external-link">Official macOS R 4.6.1 builder</a>: no errors, warnings or notes; PDF manual check passes.</li>
+<li>Windows setup uses a checksum-verified official archive because churon 0.1.13 currently passes an unsupported quiet argument to base R’s unzip function. This dependency installer issue does not affect loading or running theeuh with a configured runtime. Both setup guides include an explicit workaround.</li>
 </ul></div>
 <div class="section level2">
 <h2 id="official-sources">Official sources<a class="anchor" aria-label="anchor" href="#official-sources"></a></h2>

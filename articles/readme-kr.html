@@ -87,8 +87,8 @@
 <p><a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a>는 CRAN에 등록되어 있지 않습니다. CRAN에서
 <a href="https://github.com/mrchypark/churon" class="external-link">churon</a>을 설치한 뒤 r-universe에서 <a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a>를
 설치하세요. <a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a>는 ONNX 추론에 <a href="https://github.com/mrchypark/churon" class="external-link">churon</a>을
-사용합니다. 처음 사용하기 전에 현재 R 세션에서 ONNX Runtime을
-설치하세요.</p>
+사용합니다. macOS arm64 및 Linux x64/arm64에서는 처음 사용하기 전에 현재
+R 세션에서 ONNX Runtime을 설치하세요.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">churon</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/churon/man/install_onnx_runtime.html" class="external-link">install_onnx_runtime</a></span><span class="op">(</span>destdir <span class="op">=</span> <span class="st">"~/.local/share/churon"</span><span class="op">)</span></span>
 <span><span class="va">runtime_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ORT_DYLIB_PATH"</span><span class="op">)</span></span>
@@ -101,11 +101,48 @@ ORT_DISABLE_TELEMETRY=1</code></pre>
 macOS x86_64는 ONNX Runtime 1.28.0 이상에서 지원하지 않습니다. 진단 정보
 전송 설정은 다른 패키지가 먼저 런타임을 초기화할 때에도 적용됩니다.</p>
 </div>
+<div class="section level4">
+<h4 id="windows-x64">Windows x64<a class="anchor" aria-label="anchor" href="#windows-x64"></a>
+</h4>
+<p>CRAN의 <a href="https://github.com/mrchypark/churon" class="external-link">churon</a> 0.1.13은 Windows에서 ONNX Runtime을
+설치하지 못합니다. 설치 함수가
+<code>utils::unzip(..., quiet = TRUE)</code>를 호출하지만 Windows base
+R은 이 인수를 지원하지 않기 때문입니다. <a href="https://github.com/mrchypark/churon" class="external-link">churon</a>에서
+수정되기 전까지는 공식 <a href="https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/onnxruntime-win-x64-1.29.0.zip" class="external-link">ONNX
+Runtime 1.29.0 Windows x64 압축 파일</a>을 내려받아 base R로 설치하세요.
+<code>destdir</code>에는 계속 보관할 디렉터리를 지정합니다.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">destdir</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/your-name/AppData/Local/churon"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">destdir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">zip_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/"</span>,</span>
+<span>  <span class="st">"onnxruntime-win-x64-1.29.0.zip"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">zip_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"onnxruntime-win-x64-1.29.0.zip"</span><span class="op">)</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">zip_url</span>, <span class="va">zip_file</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">zip_file</span>, exdir <span class="op">=</span> <span class="va">destdir</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">zip_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">runtime_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
+<span>    <span class="va">destdir</span>, <span class="st">"onnxruntime-win-x64-1.29.0"</span>, <span class="st">"lib"</span>, <span class="st">"onnxruntime.dll"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  winslash <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>ORT_DYLIB_PATH <span class="op">=</span> <span class="va">runtime_path</span>, ORT_DISABLE_TELEMETRY <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span>
+<span><span class="va">runtime_path</span></span></code></pre></div>
+<p>다음 R 세션부터는 출력된 절대 경로를 <code>~/.Renviron</code>에
+저장하고 R을 다시 시작한 뒤 <a href="https://github.com/mrchypark/theeuh" class="external-link">theeuh</a>를 불러오세요.</p>
+<pre><code>ORT_DYLIB_PATH=C:/Users/your-name/AppData/Local/churon/onnxruntime-win-x64-1.29.0/lib/onnxruntime.dll
+ORT_DISABLE_TELEMETRY=1</code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="사용법">사용법<a class="anchor" aria-label="anchor" href="#%EC%82%AC%EC%9A%A9%EB%B2%95"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mrchypark/theeuh" class="external-link">"theeuh"</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ChurOn: Setup ONNX Runtime at /home/runner/work/_temp/onnxruntime/lib/libonnxruntime.so</span></span>
 <span><span class="fu"><a href="../reference/space.html">space</a></span><span class="op">(</span><span class="st">"김형호영화시장분석가는'1987'의네이버영화정보네티즌10점평에서언급된단어들을지난해12월27일부터올해1월10일까지통계프로그램R을이용하여텍스트마이닝하여분석했다."</span><span class="op">)</span></span>

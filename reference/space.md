@@ -17,9 +17,9 @@ space(ko_sents)
 
 ## Value
 
-A character string for one sentence, or an unnamed list of character
-strings for multiple sentences. An empty character vector returns
-[`list()`](https://rdrr.io/r/base/list.html).
+Sentences with restored spacing: a character string for one sentence, or
+an unnamed list of character strings for multiple sentences. An empty
+character vector returns [`list()`](https://rdrr.io/r/base/list.html).
 
 ## Details
 

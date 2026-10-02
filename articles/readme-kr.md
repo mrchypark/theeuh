@@ -29,8 +29,9 @@ install.packages(
 않습니다. CRAN에서 [churon](https://github.com/mrchypark/churon)을
 설치한 뒤 r-universe에서 [theeuh](https://github.com/mrchypark/theeuh)를
 설치하세요. [theeuh](https://github.com/mrchypark/theeuh)는 ONNX 추론에
-[churon](https://github.com/mrchypark/churon)을 사용합니다. 처음
-사용하기 전에 현재 R 세션에서 ONNX Runtime을 설치하세요.
+[churon](https://github.com/mrchypark/churon)을 사용합니다. macOS arm64
+및 Linux x64/arm64에서는 처음 사용하기 전에 현재 R 세션에서 ONNX
+Runtime을 설치하세요.
 
 ``` r
 
@@ -48,6 +49,49 @@ runtime_path
 ONNX Runtime은 macOS arm64, Linux x64/arm64, Windows x64를 지원하며,
 macOS x86_64는 ONNX Runtime 1.28.0 이상에서 지원하지 않습니다. 진단 정보
 전송 설정은 다른 패키지가 먼저 런타임을 초기화할 때에도 적용됩니다.
+
+#### Windows x64
+
+CRAN의 [churon](https://github.com/mrchypark/churon) 0.1.13은
+Windows에서 ONNX Runtime을 설치하지 못합니다. 설치 함수가
+`utils::unzip(..., quiet = TRUE)`를 호출하지만 Windows base R은 이
+인수를 지원하지 않기 때문입니다.
+[churon](https://github.com/mrchypark/churon)에서 수정되기 전까지는 공식
+[ONNX Runtime 1.29.0 Windows x64 압축
+파일](https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/onnxruntime-win-x64-1.29.0.zip)을
+내려받아 base R로 설치하세요. `destdir`에는 계속 보관할 디렉터리를
+지정합니다.
+
+``` r
+
+destdir <- "C:/Users/your-name/AppData/Local/churon"
+dir.create(destdir, recursive = TRUE, showWarnings = FALSE)
+
+zip_url <- paste0(
+  "https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/",
+  "onnxruntime-win-x64-1.29.0.zip"
+)
+zip_file <- file.path(tempdir(), "onnxruntime-win-x64-1.29.0.zip")
+utils::download.file(zip_url, zip_file, mode = "wb")
+utils::unzip(zip_file, exdir = destdir)
+unlink(zip_file)
+
+runtime_path <- normalizePath(
+  file.path(
+    destdir, "onnxruntime-win-x64-1.29.0", "lib", "onnxruntime.dll"
+  ),
+  winslash = "/",
+  mustWork = TRUE
+)
+Sys.setenv(ORT_DYLIB_PATH = runtime_path, ORT_DISABLE_TELEMETRY = "1")
+runtime_path
+```
+
+다음 R 세션부터는 출력된 절대 경로를 `~/.Renviron`에 저장하고 R을 다시
+시작한 뒤 [theeuh](https://github.com/mrchypark/theeuh)를 불러오세요.
+
+    ORT_DYLIB_PATH=C:/Users/your-name/AppData/Local/churon/onnxruntime-win-x64-1.29.0/lib/onnxruntime.dll
+    ORT_DISABLE_TELEMETRY=1
 
 ### 사용법
 

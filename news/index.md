@@ -7,6 +7,7 @@
 - Disable ONNX Runtime telemetry during initialization to prevent trace
   files.
 - Credit the original KoSpacing author and document model provenance.
+- Document a Windows installation workaround for churon 0.1.13.
 - Validate character-vector inputs and preserve missing values.
 - Preserve literal `|`, `«`, and `»` characters when decoding
   predictions.
