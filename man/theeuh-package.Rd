@@ -4,11 +4,11 @@
 \name{theeuh-package}
 \alias{theeuh}
 \alias{theeuh-package}
-\title{theeuh: Write Spaces To Korean Sentences}
+\title{theeuh: Write Spaces to Korean Sentences}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides a function to write spaces to Korean sentences.
+Restores spacing in Korean sentences using a bundled neural network model and 'ONNX Runtime' \url{https://onnxruntime.ai/} through 'churon'. Inference runs locally without a web service or automatic downloads.
 }
 \seealso{
 Useful links:
@@ -21,6 +21,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Chanyub Park \email{mrchypark@gmail.com} (\href{https://orcid.org/0000-0001-6474-2570}{ORCID})
+
+Authors:
+\itemize{
+  \item Heewon Jeon (Author of KoSpacing code and bundled model assets)
+}
 
 }
 \keyword{internal}

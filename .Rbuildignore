@@ -1,5 +1,8 @@
 ^theeuh\.Rproj$
 ^\.Rproj\.user$
+^AGENTS\.md$
+^cran-comments\.md$
+^CRAN-REVIEW\.md$
 ^LICENSE\.md$
 ^\.github$
 ^codecov\.yml$

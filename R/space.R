@@ -1,15 +1,35 @@
 #' Write spaces to Korean sentences.
 #'
-#' @param ko_sents target korean sentences.
+#' @param ko_sents A character vector of Korean sentences. Missing values are
+#'   preserved. Sentences longer than 198 characters are truncated with a warning.
+#' @return A character string for one sentence, or an unnamed list of character
+#'   strings for multiple sentences. An empty character vector returns `list()`.
+#' @details The bundled model is loaded on the first non-empty, non-missing
+#'   sentence. ONNX Runtime must be configured first; see
+#'   [churon::install_onnx_runtime()]. No runtime is downloaded automatically.
+#'   On supported non-Windows runtimes, telemetry is disabled during model
+#'   initialization. If another package initializes ONNX Runtime first, set
+#'   `ORT_DISABLE_TELEMETRY=1` before starting R to disable telemetry globally.
+#' @examples
+#' if (churon::check_onnx_runtime_available()) {
+#'   space("\uC774\uC81C\uCEE4\uBC0B\uD558\uBA74")
+#' }
 #'
 #' @export
 space <- function(ko_sents) {
+  if (!is.character(ko_sents) || !is.null(dim(ko_sents))) {
+    stop("ko_sents must be a character vector.", call. = FALSE)
+  }
+  ko_sents <- enc2utf8(ko_sents)
 
-  if (!check_model_set()) load_models()
+  if (any(!is.na(ko_sents) & nzchar(ko_sents)) && !check_model_set()) {
+    load_models()
+  }
 
-  sess <- get("sess", envir = .theeuhenv)
+  sess <- .theeuhenv$sess
 
   spacing_ <- function(ko_sent) {
+    if (is.na(ko_sent) || !nzchar(ko_sent)) return(ko_sent)
     if (nchar(ko_sent) > 198) {
       warning(sprintf(
         "One sentence can not contain more than 198 characters. : %s",
@@ -18,18 +38,10 @@ space <- function(ko_sents) {
     }
     ko_sent_ <- substr(ko_sent, 1, 198)
     mat <- sent_to_matrix(ko_sent_)
-    
-    # Use churon for inference
-    # churon::onnx_run expects a named list of inputs
     out <- churon::onnx_run(sess, list(input_1 = mat))
-    
-    # out is a list of output tensors, take the first one
     return(trimws(make_pred_sent(ko_sent_, out[[1]])))
   }
-  ress <- sapply(ko_sents,
-                 spacing_,
-                 simplify = FALSE,
-                 USE.NAMES = FALSE)
+  ress <- lapply(unname(ko_sents), spacing_)
 
   if (length(ress) == 1)
     ress <- ress[[1]]
@@ -55,26 +67,16 @@ sent_to_matrix <- function(ko_sent) {
   mat <- matrix(data = hash[['__PAD__']],
                 nrow = 1,
                 ncol = 200)
-  mat[, 1:length(encoded)] <-  encoded
+  mat[, seq_along(encoded)] <- encoded
   return(mat)
 }
 
 make_pred_sent <- function(raw_sent, spacing_mat) {
-  raw_sent <- paste0('\u00ab', raw_sent, '\u00bb')
-  spacing_prob <- spacing_mat[1:nchar(raw_sent)]
-  raw_chars <- strsplit(raw_sent, split = '')[[1]]
-
-  ret_v <- c()
-  for (i in 1:length(raw_chars)) {
-    if (spacing_prob[i] > 0.5) {
-      ret_v <- c(ret_v, raw_chars[i], " ")
-    } else{
-      ret_v <- c(ret_v, raw_chars[i])
-    }
-  }
-  ret <- paste0(ret_v, collapse = '')
-  ret <- gsub('[\u00ab|\u00bb]', '', ret)
-  ret <-
-    paste(strsplit(ret, split = "[[:space:]]+")[[1]], collapse = ' ')
-  return(ret)
+  raw_chars <- strsplit(enc2utf8(raw_sent), split = "")[[1]]
+  spacing_prob <- spacing_mat[seq_along(raw_chars) + 1L]
+  ret <- paste0(
+    ifelse(spacing_prob > 0.5, paste0(raw_chars, " "), raw_chars),
+    collapse = ""
+  )
+  trimws(gsub("[[:space:]]+", " ", ret))
 }

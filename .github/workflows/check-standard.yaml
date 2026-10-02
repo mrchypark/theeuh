@@ -27,6 +27,10 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      # GitHub manages runner clocks; avoid unreliable external time APIs.
+      _R_CHECK_SYSTEM_CLOCK_: 'false'
+      # Prevent ONNX Runtime telemetry from leaving temporary trace files.
+      ORT_DISABLE_TELEMETRY: '1'
 
     steps:
       - uses: actions/checkout@v4
@@ -39,14 +43,21 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Install churon from r-universe
-        run: install.packages('churon', repos = c('https://mrchypark.r-universe.dev', 'https://cloud.r-project.org'))
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::covr
+          extra-packages: any::churon, any::rcmdcheck, any::covr, any::testthat
           dependencies: '"hard"'
+
+      - name: Install ONNX Runtime
+        run: |
+          runtime_dir <- file.path(Sys.getenv("RUNNER_TEMP"), "onnxruntime")
+          churon::install_onnx_runtime(destdir = runtime_dir)
+          stopifnot(churon::check_onnx_runtime_available())
+          cat(
+            "ORT_DYLIB_PATH=", Sys.getenv("ORT_DYLIB_PATH"), "\n",
+            file = Sys.getenv("GITHUB_ENV"), sep = ""
+          )
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
 

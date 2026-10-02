@@ -13,13 +13,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/mrchypark/theeuh/workflows/R-CMD-check/badge.svg)](https://github.com/mrchypark/theeuh/actions)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/theeuh)](https://CRAN.R-project.org/package=theeuh)
 [![runiverse-name](https://mrchypark.r-universe.dev/badges/:name)](https://mrchypark.r-universe.dev/)
-[![runiverse-package](https://mrchypark.r-universe.dev/badges/theeuh)](https://mrchypark.r-universe.dev/ui#packages)
-[![metacran
-downloads](https://cranlogs.r-pkg.org/badges/theeuh)](https://cran.r-project.org/package=theeuh)
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/theeuh)](https://cran.rstudio.com/package=theeuh)
+[![runiverse-package](https://mrchypark.r-universe.dev/badges/theeuh)](https://mrchypark.r-universe.dev/theeuh)
 [![Codecov test
 coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mrchypark/theeuh?branch=main)
 <!-- badges: end -->
@@ -31,12 +26,34 @@ coverage](https://codecov.io/gh/mrchypark/theeuh/branch/main/graph/badge.svg)](h
 ### 1. 패키지 설치
 
 ``` r
-# CRAN 아직 안됩니다!
-install.packages("theeuh")
-
-# 개발버전 설치 r-universe
-install.packages('theeuh', repos = "https://mrchypark.r-universe.dev")
+install.packages("churon")
+install.packages(
+  "theeuh",
+  repos = c("https://mrchypark.r-universe.dev", "https://cloud.r-project.org")
+)
 ```
+
+`{theeuh}`는 CRAN에 등록되어 있지 않습니다. CRAN에서 `{churon}`을 설치한 뒤
+r-universe에서 `{theeuh}`를 설치하세요. `{theeuh}`는 ONNX 추론에 `{churon}`을
+사용합니다. 처음 사용하기 전에 현재 R 세션에서 ONNX Runtime을 설치하세요.
+
+``` r
+churon::install_onnx_runtime(destdir = "~/.local/share/churon")
+runtime_path <- Sys.getenv("ORT_DYLIB_PATH")
+runtime_path
+```
+
+이후 R 세션에서는 출력된 경로를 `~/.Renviron`에 저장한 뒤 R을 다시 시작하고
+`{theeuh}`를 불러오세요.
+
+```
+ORT_DYLIB_PATH=/위에서_출력된_경로
+ORT_DISABLE_TELEMETRY=1
+```
+
+ONNX Runtime은 macOS arm64, Linux x64/arm64, Windows x64를 지원하며, macOS
+x86_64는 ONNX Runtime 1.28.0 이상에서 지원하지 않습니다.
+진단 정보 전송 설정은 다른 패키지가 먼저 런타임을 초기화할 때에도 적용됩니다.
 
 ## 사용법
 

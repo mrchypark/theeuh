@@ -19,6 +19,7 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      ORT_DISABLE_TELEMETRY: '1'
     permissions:
       contents: write
     steps:
@@ -32,7 +33,18 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, mrchypark/churon, amirmasoudabdol/preferably, local::.
+          extra-packages: any::pkgdown, any::churon, local::.
+
+      - name: Install ONNX Runtime
+        run: |
+          runtime_dir <- file.path(Sys.getenv("RUNNER_TEMP"), "onnxruntime")
+          churon::install_onnx_runtime(destdir = runtime_dir)
+          stopifnot(churon::check_onnx_runtime_available())
+          cat(
+            "ORT_DYLIB_PATH=", Sys.getenv("ORT_DYLIB_PATH"), "\n",
+            file = Sys.getenv("GITHUB_ENV"), sep = ""
+          )
+        shell: Rscript {0}
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
