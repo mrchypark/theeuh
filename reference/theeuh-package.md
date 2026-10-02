@@ -1,6 +1,8 @@
-# theeuh: Write Spaces To Korean Sentences
+# theeuh: Write Spaces to Korean Sentences
 
-Provides a function to write spaces to Korean sentences.
+Restores spacing in Korean sentences using a bundled neural network
+model and 'ONNX Runtime' <https://onnxruntime.ai/> through 'churon'.
+Inference runs locally without a web service or automatic downloads.
 
 ## See also
 
@@ -16,3 +18,7 @@ Useful links:
 
 **Maintainer**: Chanyub Park <mrchypark@gmail.com>
 ([ORCID](https://orcid.org/0000-0001-6474-2570))
+
+Authors:
+
+- Heewon Jeon (Author of KoSpacing code and bundled model assets)
