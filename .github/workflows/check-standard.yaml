@@ -49,6 +49,7 @@ jobs:
           dependencies: '"hard"'
 
       - name: Install ONNX Runtime
+        if: runner.os != 'Windows'
         run: |
           runtime_dir <- file.path(Sys.getenv("RUNNER_TEMP"), "onnxruntime")
           churon::install_onnx_runtime(destdir = runtime_dir)
@@ -58,6 +59,21 @@ jobs:
             file = Sys.getenv("GITHUB_ENV"), sep = ""
           )
         shell: Rscript {0}
+
+      # churon 0.1.13 passes unsupported quiet=TRUE to unzip() on Windows.
+      - name: Install ONNX Runtime on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $runtimeDir = Join-Path $env:RUNNER_TEMP 'onnxruntime'
+          $archive = Join-Path $env:RUNNER_TEMP 'onnxruntime.zip'
+          Invoke-WebRequest -Uri 'https://github.com/microsoft/onnxruntime/releases/download/v1.29.0/onnxruntime-win-x64-1.29.0.zip' -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash -ne 'c9b4b7086b529ad814f428c1bad028e20a25d7dc0699836775faace4ab5b78b2') { throw 'ONNX Runtime checksum mismatch' }
+          Expand-Archive -LiteralPath $archive -DestinationPath $runtimeDir
+          Remove-Item $archive
+          $env:ORT_DYLIB_PATH = Join-Path $runtimeDir 'onnxruntime-win-x64-1.29.0/lib/onnxruntime.dll'
+          "ORT_DYLIB_PATH=$env:ORT_DYLIB_PATH" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Rscript -e 'stopifnot(churon::check_onnx_runtime_available())'
 
       - uses: r-lib/actions/check-r-package@v2
 

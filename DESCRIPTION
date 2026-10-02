@@ -27,5 +27,5 @@ Imports: churon (>= 0.1.13)
 SystemRequirements: ONNX Runtime (>= 1.28.0, optional at runtime)
 Suggests: 
     covr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.2.0)
 Config/testthat/edition: 3

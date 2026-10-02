@@ -39,13 +39,18 @@ Runtime inference is optional on platforms without supported ONNX binaries.
 
 ## Verification
 
-* Local macOS arm64, R 4.5.2: 23 expectations pass with ONNX Runtime 1.29.0.
+* Local macOS arm64, R 4.5.2: 31 expectations pass with ONNX Runtime 1.29.0,
+  including restoration after failed session construction. Coverage: 98.59%.
 * Built archive: R CMD check --as-cran --no-manual has no errors or warnings;
   the only NOTE is New submission. Package-managed telemetry opt-out leaves
   no temporary diagnostic files. External clock probe disabled; timestamps
   still checked. All 14 checked package URLs are valid.
-* [Official macOS R 4.6.1 builder](https://mac.R-project.org/macbuilder/results/1790948116-a032d2ed9617f2fe/):
+* [Official macOS R 4.6.1 builder](https://mac.R-project.org/macbuilder/results/1790948418-19d2219072629121/):
   no errors, warnings or notes; PDF manual check passes.
+* Windows setup uses a checksum-verified official archive because churon 0.1.13
+  currently passes an unsupported quiet argument to base R's unzip function.
+  This dependency installer issue does not affect loading or running theeuh
+  with a configured runtime. Both setup guides include an explicit workaround.
 
 ## Official sources
 

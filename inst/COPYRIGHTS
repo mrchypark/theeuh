@@ -3,8 +3,14 @@ KoSpacing-derived model assets
 inst/model/w2idx is the unmodified inst/model/w2idx asset from KoSpacing:
 https://github.com/haven-jeon/KoSpacing/blob/f6728eba7be416904ffeb8d1d5fcfd7d1cafb206/inst/model/w2idx
 
-inst/model/kospacing.onnx is converted from KoSpacing's inst/model/kospacing
-asset by data-raw/convert-onnx.R.
+inst/model/kospacing.onnx is converted from KoSpacing's model asset:
+https://github.com/haven-jeon/KoSpacing/blob/f6728eba7be416904ffeb8d1d5fcfd7d1cafb206/inst/model/kospacing
+The original conversion script is available at:
+https://github.com/mrchypark/theeuh/blob/276de0fa3813194077ba114eb4c9931c21c6f59c/data-raw/convert-onnx.R
+
+SHA-256 of the bundled assets:
+kospacing.onnx: f39588902a25cc1916e408f156a1bba066d460a956534bda71b87933efa476d0
+w2idx: 6eedc441031f7c54cd5055fa928f50b920cb956725c9b2a185e2f7933b1e4e06
 
 KoSpacing is authored by Heewon Jeon. Its DESCRIPTION declares GPL-3:
 https://github.com/haven-jeon/KoSpacing/blob/f6728eba7be416904ffeb8d1d5fcfd7d1cafb206/DESCRIPTION

@@ -65,3 +65,31 @@ test_that("space handles vectors, unknown characters and model limits", {
   expect_warning(result <- space(paste0(limit, "나")), "198 characters")
   expect_identical(result, space(limit))
 })
+
+test_that("failed session construction restores telemetry settings", {
+  local_mocked_bindings(
+    check_onnx_runtime_available = function() TRUE,
+    onnx_session = function(...) stop("test session error"),
+    .package = "churon"
+  )
+  old_telemetry <- Sys.getenv("ORT_DISABLE_TELEMETRY", unset = NA_character_)
+  tryCatch({
+    for (value in c(NA_character_, "", "0", "1")) {
+      if (is.na(value)) {
+        Sys.unsetenv("ORT_DISABLE_TELEMETRY")
+      } else {
+        Sys.setenv(ORT_DISABLE_TELEMETRY = value)
+      }
+      expect_error(load_models(), "test session error", fixed = TRUE)
+      expect_identical(
+        Sys.getenv("ORT_DISABLE_TELEMETRY", unset = NA_character_), value
+      )
+    }
+  }, finally = {
+    if (is.na(old_telemetry)) {
+      Sys.unsetenv("ORT_DISABLE_TELEMETRY")
+    } else {
+      Sys.setenv(ORT_DISABLE_TELEMETRY = old_telemetry)
+    }
+  })
+})

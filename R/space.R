@@ -2,8 +2,9 @@
 #'
 #' @param ko_sents A character vector of Korean sentences. Missing values are
 #'   preserved. Sentences longer than 198 characters are truncated with a warning.
-#' @return A character string for one sentence, or an unnamed list of character
-#'   strings for multiple sentences. An empty character vector returns `list()`.
+#' @return Sentences with restored spacing: a character string for one sentence,
+#'   or an unnamed list of character strings for multiple sentences. An empty
+#'   character vector returns `list()`.
 #' @details The bundled model is loaded on the first non-empty, non-missing
 #'   sentence. ONNX Runtime must be configured first; see
 #'   [churon::install_onnx_runtime()]. No runtime is downloaded automatically.

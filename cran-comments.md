@@ -16,7 +16,8 @@ and the original author's credit are included in inst/COPYRIGHTS and Authors@R.
 ## Local checks
 
 macOS arm64, R 4.5.2, churon 0.1.13, ONNX Runtime 1.29.0:
-23 test expectations passed, including real inference and telemetry opt-out.
+31 test expectations passed, including real inference, telemetry opt-out and
+environment restoration when native session construction fails.
 R CMD check --as-cran --no-manual: 0 errors, 0 warnings, 1 NOTE (New submission).
 The external clock probe was disabled after confirming the local clock;
 future-file timestamp checks were retained. Telemetry was disabled by the
@@ -24,4 +25,4 @@ package itself, without a pre-set telemetry environment variable.
 
 Official macOS builder, arm64, R 4.6.1 Patched:
 0 errors, 0 warnings, 0 notes, including PDF manual checks.
-https://mac.R-project.org/macbuilder/results/1790948116-a032d2ed9617f2fe/
+https://mac.R-project.org/macbuilder/results/1790948418-19d2219072629121/

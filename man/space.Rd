@@ -11,8 +11,9 @@ space(ko_sents)
 preserved. Sentences longer than 198 characters are truncated with a warning.}
 }
 \value{
-A character string for one sentence, or an unnamed list of character
-strings for multiple sentences. An empty character vector returns \code{list()}.
+Sentences with restored spacing: a character string for one sentence,
+or an unnamed list of character strings for multiple sentences. An empty
+character vector returns \code{list()}.
 }
 \description{
 Write spaces to Korean sentences.

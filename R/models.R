@@ -32,7 +32,9 @@ load_models <- function() {
     }
   }, add = TRUE)
   # ONNX Runtime reads this at initialization and keeps the process-wide opt-out.
-  Sys.setenv(ORT_DISABLE_TELEMETRY = "1")
+  if (!Sys.setenv(ORT_DISABLE_TELEMETRY = "1")) {
+    stop("Unable to disable ONNX Runtime telemetry.", call. = FALSE)
+  }
   sess <- churon::onnx_session(model_path = model_file)
 
   assign("hash", hash, envir = .theeuhenv)
