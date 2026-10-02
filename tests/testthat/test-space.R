@@ -80,9 +80,11 @@ test_that("failed session construction restores telemetry settings", {
       } else {
         Sys.setenv(ORT_DISABLE_TELEMETRY = value)
       }
+      # Windows treats an empty environment variable as unset.
+      before <- Sys.getenv("ORT_DISABLE_TELEMETRY", unset = NA_character_)
       expect_error(load_models(), "test session error", fixed = TRUE)
       expect_identical(
-        Sys.getenv("ORT_DISABLE_TELEMETRY", unset = NA_character_), value
+        Sys.getenv("ORT_DISABLE_TELEMETRY", unset = NA_character_), before
       )
     }
   }, finally = {
