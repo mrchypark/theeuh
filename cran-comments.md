@@ -25,4 +25,17 @@ package itself, without a pre-set telemetry environment variable.
 
 Official macOS builder, arm64, R 4.6.1 Patched:
 0 errors, 0 warnings, 0 notes, including PDF manual checks.
-https://mac.R-project.org/macbuilder/results/1790948418-19d2219072629121/
+https://mac.R-project.org/macbuilder/results/1790948927-d6bc3dff0d759fac/
+
+GitHub CI: Windows release, macOS arm64 release, Linux release, oldrel-1 and
+R-devel all passed with runtime-enabled inference and no check notes.
+https://github.com/mrchypark/theeuh/actions/runs/37015356623
+The pkgdown build and deployment also passed.
+https://github.com/mrchypark/theeuh/actions/runs/37015357026
+
+The final tarball was also uploaded to win-builder R-release; its report is
+pending. An earlier candidate was uploaded to win-builder R-devel. The final
+candidate's R-devel and Windows checks above passed on GitHub CI.
+
+Source tarball SHA-256:
+b9b58e3c1211d5ce5d44d5d4f590837f18d0a5c3d6eceb992ec4365df8698a04
